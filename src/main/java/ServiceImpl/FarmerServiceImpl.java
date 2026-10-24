@@ -15,12 +15,17 @@ import model.Depots;
 import model.Depotstock;
 import model.Farmer;
 import model.Product;
+import model.Reservation;
 import model.Schemes;
 import model.Skus;
 
 @Service
 public class FarmerServiceImpl implements FamerService{
-
+	
+	int reserCount =0;
+	MutableClock clock = MutableClock.startingAt(Instant.parse());
+	 Instant currentTime = clock.instant();
+	 
 	@Override
 	public void farmerBooking(Farmer booked) {
 		
@@ -58,7 +63,7 @@ public class FarmerServiceImpl implements FamerService{
 			if(i.getSeason().equals(booked.getSeason())) {
 				//Getting the schema where it is open based on the date and time
 				MutableClock clock = MutableClock.startingAt(Instant.parse(i.getOpens_at()));
-				clock.advance(Duration.ofMinutes(10));
+				
 				 Instant currentTime = clock.instant();
 				if(currentTime> i.getOpens_at() && i<i.getCloses_at()) {
 					scheme_id= i.getScheme_id();
@@ -71,14 +76,23 @@ public class FarmerServiceImpl implements FamerService{
 		
 		int totalRequiredByFamer =  booked.getLandholding_acres()x product.getKg_per_acre(booked.getProduct());
 		
+		Reservation bookedResr ;
 		//Iterate through depotStock to map and update the total
 		for(Depotstock x: depotStock) {
 			if(totalRequiredByFamer < (x.getTotal() ){
 				//Set the reservation fields and update to the reservation table
+				
+				for(Skus j: skus) {
+					if(j.getProduct().equals(booked.getProduct()))) {
+					String sku= j.getSkus();
+					}
+				}
+				String expiresAt = currentTime+ clock.advance(Duration.ofMinutes(10)); // get the 10 min from now to set expireddate
+				bookedResr= new Reservation ("R"+reserCount++, genUniqueID, booked.getFarmer_id(), booked.getDepot_id(), sku, schema_id, totalRequiredByFamer, status, currentTime, expiresAt , confirmedAt);
 			}
 		}
 		
-
+		
 		
 		
 		
