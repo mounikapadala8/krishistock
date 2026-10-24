@@ -4,7 +4,7 @@ Fill this in as you go. It must be complete when you push tag `final` at 13:10.
 
 ## Candidate
 
-- Name:
+- Name: Mounika Padala
 - Room:
 
 ## How to run
@@ -18,6 +18,20 @@ Fill this in as you go. It must be complete when you push tag `final` at 13:10.
 ## Assumptions
 
 <!-- Every assumption you made where the brief was silent, and why. -->
+
+Input:
+
+A)Check if farmerid is already booked within 10 min from the reservation table if no record found, go and create a new as follows below
+1)farmer booking  read the following parameters-> input id, district, landholding, depotid, product, season
+2) get the scheme where in the scheme falls in opens and close time based on the season
+3)Calculate the total required by farmer from multiply the acres and the product unit it is available at depot_id farmer opted for
+	a) check if sku is having more amount than the farmer is requested for
+	b) if not iterate and go to next Sku and recalc
+4) Update the required fields in reservation by getting the calcluated fileds and generating unique id for each reservation
+
+B) If farmerId already exist and farmer updating booking within 10 min and recalculate the total and update the depotstock at SKUs and the reservation table for farmerId
+
+C) If the event containing farmer pickup is not coming within 10 min or time exceeds, mark the reservation status as "CANCELLED"
 
 -
 
